@@ -1,0 +1,55 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-user-heading {
+  padding-left: 2em;
+  align-self: flex-start;
+}
+
+.add-user-form {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-input-fields {
+  padding: 0 10px 0 10px;
+  border: 1px solid rgba(128, 128, 128, 0.23);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.user-names {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 2%;
+}
+
+@media (max-width: 800px) {
+  .user-names {
+    flex-wrap: wrap;
+  }
+}
+
+#first-name {
+  width: 100%;
+}
+#last-name {
+  width: 100%;
+}
+
+.add-user-form-buttons {
+  padding-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
