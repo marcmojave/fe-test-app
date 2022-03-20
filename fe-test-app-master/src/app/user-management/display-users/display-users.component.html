@@ -1,0 +1,43 @@
+<div>
+  <a routerLink="/users/create">
+    <button mat-raised-button color="primary">NEW USER</button>
+  </a>
+
+</div>
+<div class="mat-elevation-z8" *ngIf="this.dataSource">
+  <table mat-table [dataSource]="this.dataSource">
+    <!-- Username Column -->
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef>Username</th>
+      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+    </ng-container>
+    <!--     Full name Column -->
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef>Full Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.firstName + ' ' + element.lastName}} </td>
+    </ng-container>
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'user-status-active': element.status === 1,
+      'user-status-inactive': element.status === 3}">
+        {{getStatus(element.status)}} </td>
+    </ng-container>
+    <!-- Date created -->
+    <ng-container matColumnDef="dateCreated">
+      <th mat-header-cell *matHeaderCellDef>Date Created</th>
+      <td mat-cell *matCellDef="let element"> {{element.dateCreated | customDate}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[18, 10, 5]"
+                 showFirstLastButtons
+                 aria-label="Select page of Users">
+  </mat-paginator>
+</div>
