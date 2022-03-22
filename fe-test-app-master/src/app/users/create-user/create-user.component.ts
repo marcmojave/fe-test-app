@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators
 } from "@angular/forms";
-import { UserService } from "../../services/user-service/user.service";
-import { duplicateName, emailValidator, invalidCharacters } from "../../shared/validators/validators";
+import { UserService } from "../../services/user.service";
+import { duplicateName, emailValidator, invalidCharacters } from "../../shared/validators.directive";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { CustomError } from "../models/custom-error.model";
+import { ResponseError } from "../shared/response-error.model";
 import { Router } from "@angular/router";
-import { User } from "../models/user.model";
+import { Observable } from "rxjs";
+import { ResponseSuccess } from "../shared/response-success.model";
 
 @Component({
   selector: 'exads-create-user',
@@ -31,6 +32,13 @@ export class CreateUserComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+  }
+
+  @HostListener('window:beforeunload')
+  canDeactivate(): Observable<boolean> | boolean {
+    // returning true will navigate/refresh without confirmation
+    // returning false will show a default confirm dialog before navigation
+    return !(this.addUserForm.dirty);
   }
 
   buildForm(): void {
@@ -57,12 +65,12 @@ export class CreateUserComponent implements OnInit {
   addUser(): void {
     if (this.addUserForm.valid) {
       this.userService.addUser(this.addUserForm.value).subscribe({
-        next: (user: User) => {
+        next: (response: ResponseSuccess) => {
           this.router.navigateByUrl('/users').then(null);
-          this.snackBar.open('User ' + user.username + ' added successfully',
+          this.snackBar.open('User ' + response.user.username + ' added successfully',
             null, { duration: 3000 });
         },
-        error: (err: CustomError) => this.snackBar.open(err.userMessage, 'Close')
+        error: (err: ResponseError) => this.snackBar.open(err.userMessage, 'Close')
       })
     }
   }

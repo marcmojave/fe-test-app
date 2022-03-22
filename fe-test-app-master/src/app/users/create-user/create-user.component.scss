@@ -3,10 +3,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .add-user-heading {
-  padding-left: 2em;
+  padding-left: 2.2%;
   align-self: flex-start;
 }
 
@@ -34,22 +35,26 @@
   gap: 2%;
 }
 
-@media (max-width: 800px) {
-  .user-names {
-    flex-wrap: wrap;
-  }
-}
-
 #first-name {
   width: 100%;
 }
+
 #last-name {
   width: 100%;
 }
 
 .add-user-form-buttons {
   padding-top: 10px;
-  width: 100%;
+  width: 96%;
   display: flex;
   justify-content: space-between;
+  flex-direction: row-reverse;
+}
+
+// media queries
+
+@media (max-width: 800px) {
+  .user-names {
+    flex-wrap: wrap;
+  }
 }

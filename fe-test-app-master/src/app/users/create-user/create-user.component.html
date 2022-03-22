@@ -1,0 +1,58 @@
+<div class="container">
+  <h2 class="add-user-heading">Add New User</h2>
+  <!--  Add User Form-->
+  <form class="add-user-form" [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+    <div class="form-input-fields">
+      <!--    Username-->
+      <mat-form-field appearance="standard">
+        <mat-label i18n>Enter Username</mat-label>
+        <input type="text" matInput formControlName="username" autocomplete="off">
+        <mat-error *ngIf="(username.hasError('minlength') || username.hasError('maxlength'))
+      && !username.hasError('invalidCharacters')" i18n>UserName must be between 3 and 20 characters long.
+        </mat-error>
+        <mat-error *ngIf="username.hasError('invalidCharacters')" i18n>Username can't contain any of the following
+          characters:
+          {{invalidCharactersText}}.
+        </mat-error>
+        <mat-error *ngIf="username.hasError('required')" i18n>Username is required.
+        </mat-error>
+        <mat-error *ngIf="username.hasError('exists')" i18n>This username already exists. Please use another.
+        </mat-error>
+      </mat-form-field>
+      <div class="user-names">
+        <!--      First name-->
+        <mat-form-field id="first-name" appearance="standard">
+          <mat-label i18n>First Name</mat-label>
+          <input type="text" matInput formControlName="firstName" autocomplete="off">
+          <mat-error *ngIf="firstName.hasError('required')" i18n>First name is required.
+          </mat-error>
+        </mat-form-field>
+        <!--      Last name-->
+        <mat-form-field id="last-name" appearance="standard">
+          <mat-label i18n>Last Name (Optional)</mat-label>
+          <input type="text" matInput formControlName="lastName" autocomplete="off">
+        </mat-form-field>
+      </div>
+      <!--    Email-->
+      <mat-form-field appearance="standard">
+        <mat-label i18n>Email</mat-label>
+        <input type="email" matInput formControlName="email" autocomplete="off">
+        <mat-error *ngIf="email.hasError('required')" i18n>Email is required.
+        </mat-error>
+        <mat-error *ngIf="email.hasError('invalidEmail')" i18n>Email must be in the format name@example.com.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <div class="add-user-form-buttons">
+    <!--      Maintain tab order by placing the buttons in this order then apply reverse-row in css-->
+    <button
+      (click)="onSubmit()"
+      mat-raised-button
+      color="primary"
+      [disabled]="addUserForm.invalid" i18n>ADD NEW USER
+    </button>
+    <button routerLink="/users" mat-raised-button color="warn" i18n>CANCEL</button>
+  </div>
+</div>
+
