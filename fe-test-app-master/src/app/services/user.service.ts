@@ -14,19 +14,21 @@ import { ResponseSuccess } from "../users/shared/response-success.model";
 })
 export class UserService {
 
+  readonly rootUrl = 'http://localhost:3000'
+
   constructor(private httpClient: HttpClient) {
   }
 
   findUser(username: string): Observable<User> {
-    return this.httpClient.get<any>('http://localhost:3000/users?username=' + username)
+    return this.httpClient.get<any>(this.rootUrl + '/users?username=' + username)
       .pipe(
         map(user => user.data),
         tap(user => console.log('find user: ', user))
       )
   }
 
-  getUsers(): Observable<User[]> {
-    return this.httpClient.get<any>('http://localhost:3000/users')
+  getUsers(): Observable<User[] | ResponseError> {
+    return this.httpClient.get<any>(this.rootUrl + '/users')
       .pipe(
         map(response => response.data.map(user => (
           {
@@ -45,7 +47,7 @@ export class UserService {
 
   addUser(user: User): Observable<ResponseSuccess | ResponseError> {
     const userDto = UserService.createUserObjForTransfer(user);
-    return this.httpClient.post<any>('http://localhost:3000/users', { user: userDto })
+    return this.httpClient.post<any>(this.rootUrl + '/users', { user: userDto })
       .pipe(
         map(response => ({
           message: response.message,

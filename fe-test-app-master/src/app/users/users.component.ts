@@ -45,7 +45,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
   getUsers(): void {
     this.userService.getUsers().subscribe(
       {
-        next: users => this.dataSource.data = [...users],
+        next: (users: User[]) => {
+          this.dataSource.data = [...users]
+        },
         error: (err: ResponseError) => {
           this.openSnackBar(err.userMessage, 'Close');
         }
