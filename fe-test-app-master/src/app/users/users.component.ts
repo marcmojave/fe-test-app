@@ -8,6 +8,7 @@ import { ResponseError } from "./shared/response-error.model";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { UserService } from "../services/user.service";
 import { MatSelectChange } from "@angular/material/select";
+import { noUsersFoundText } from "../shared/ui-text";
 
 @Component({
   selector: 'users',
@@ -20,6 +21,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   public pageSizeOptions: number[] = [10, 20, 30];
   public defaultPageSize: number = 20;
   public dataSource = new MatTableDataSource<User>();
+  public loadingPage: boolean = true;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -46,9 +48,14 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.userService.getUsers().subscribe(
       {
         next: (users: User[]) => {
-          this.dataSource.data = [...users]
+          this.loadingPage = false;
+          this.dataSource.data = [...users];
+          if (this.dataSource.data.length < 1) {
+            this.openSnackBar(noUsersFoundText, 'Close');
+          }
         },
         error: (err: ResponseError) => {
+          this.loadingPage = false;
           this.openSnackBar(err.userMessage, 'Close');
         }
       }

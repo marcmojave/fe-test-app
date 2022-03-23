@@ -13,18 +13,23 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatSelectModule } from "@angular/material/select";
 import { MatListModule } from "@angular/material/list";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
-  declarations: [ UsersComponent, CreateUserComponent, CustomDatePipe ],
-    imports: [CommonModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatButtonModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatSortModule,
-        MatSnackBarModule,
-        RouterModule, FormsModule, MatSelectModule, MatListModule],
+  declarations: [UsersComponent, CreateUserComponent, CustomDatePipe],
+  imports: [CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSortModule,
+    MatSnackBarModule,
+    RouterModule,
+    FormsModule,
+    MatSelectModule,
+    MatListModule,
+    MatProgressSpinnerModule],
   providers: []
 
 })
