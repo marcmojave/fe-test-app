@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { User } from "../users/shared/user.model";
 import { catchError, map, tap } from "rxjs/operators";
-import { UserDtoModel } from "../users/shared/user-dto.model";
+import { UserDto } from "../users/shared/user.dto";
 import { UserStatus } from "../users/shared/user-status.enum";
 import { ResponseError } from "../users/shared/response-error.model";
 import { createUserErrorText, userRetrievalErrorText } from "../shared/ui-text";
@@ -66,7 +66,7 @@ export class UserService {
     return throwError(errorObj);
   }
 
-  private static createUserObjForTransfer(user: User): UserDtoModel {
+  private static createUserObjForTransfer(user: User): UserDto {
     const defaultUserStatus = 1;
     return {
       username: user.username,

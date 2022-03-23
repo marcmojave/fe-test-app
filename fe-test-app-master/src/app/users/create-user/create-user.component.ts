@@ -14,7 +14,7 @@ import { Observable } from "rxjs";
 import { ResponseSuccess } from "../shared/response-success.model";
 
 @Component({
-  selector: 'exads-create-user',
+  selector: 'create-user',
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.scss']
 })
@@ -42,6 +42,8 @@ export class CreateUserComponent implements OnInit {
   }
 
   buildForm(): void {
+    // Reactive form consisting of a form group that contains
+    // form controls for each of the forms input elements
     this.addUserForm = this.formBuilder.group({
       username: ['', {
         validators: [Validators.required,
@@ -54,6 +56,8 @@ export class CreateUserComponent implements OnInit {
       }],
       firstName: ['', Validators.required],
       lastName: [''],
+      // custom email validator required here because
+      // Validators.email considers name@domain to be valid
       email: ['', [Validators.required, emailValidator]]
     });
   }
@@ -67,7 +71,7 @@ export class CreateUserComponent implements OnInit {
       this.userService.addUser(this.addUserForm.value).subscribe({
         next: (response: ResponseSuccess) => {
           this.router.navigateByUrl('/users').then(null);
-          this.snackBar.open('User ' + response.user.username + ' added successfully',
+          this.snackBar.open('User ' + response.user.username + ' added successfully.',
             null, { duration: 3000 });
         },
         error: (err: ResponseError) => this.snackBar.open(err.userMessage, 'Close')

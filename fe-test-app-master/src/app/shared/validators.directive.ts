@@ -47,7 +47,8 @@ export function duplicateName(userService: UserService): AsyncValidatorFn {
  */
 
 // NOTE - I am aware of a discrepancy where the api considers an email of the format name@domain.i to be invalid.
-// I dont "think" it should be, so have not changed the validation to catch it here.
+// I dont "think" it should be, so have not changed the validation to catch it here. I suppose in real life this
+// would be something to highlight & discuss which approach should be used.
 export function emailValidator(control): { invalidEmail: boolean } | null {
   if (control.value) {
     const matches = control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);

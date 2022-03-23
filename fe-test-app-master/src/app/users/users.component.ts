@@ -50,6 +50,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
         next: (users: User[]) => {
           this.loadingPage = false;
           this.dataSource.data = [...users];
+          // can use below code in the table once on angular version 10 or above
+          // <tr class="mat-row" *matNoDataRow>
+          // <td class="mat-cell" colspan="4">{{noUsersFoundText}}</td>
+          // </tr>
           if (this.dataSource.data.length < 1) {
             this.openSnackBar(noUsersFoundText, 'Close');
           }
@@ -71,7 +75,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.snackBar.open(message, action);
   }
 
-  getStatus(userStatus: number): string {
+  getUsersStatus(userStatus: number): string {
     return UserStatus[userStatus];
   }
 }
