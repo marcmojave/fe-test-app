@@ -14,6 +14,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatSelectModule } from "@angular/material/select";
 import { MatListModule } from "@angular/material/list";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { UserService } from "../services/user.service";
 
 @NgModule({
   declarations: [UsersComponent, CreateUserComponent, CustomDatePipe],
@@ -30,7 +31,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     MatSelectModule,
     MatListModule,
     MatProgressSpinnerModule],
-  providers: []
+  providers: [UserService]
 
 })
 export class UsersModule {

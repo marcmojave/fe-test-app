@@ -16,7 +16,14 @@ const routes: Routes = [
   {
     path: 'users/create',
     component: CreateUserComponent
-  }
+  },
+  // could set up a redirect component here 404 or some such
+  {
+    path: '*',
+    redirectTo: 'users',
+    pathMatch: 'full'
+  },
+  // { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];
 
 @NgModule({

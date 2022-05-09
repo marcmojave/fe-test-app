@@ -8,6 +8,7 @@ import { UserStatus } from "../users/shared/user-status.enum";
 import { ResponseError } from "../users/shared/response-error.model";
 import { createUserErrorText, userRetrievalErrorText } from "../shared/ui-text";
 import { ResponseSuccess } from "../users/shared/response-success.model";
+import { GetUsersResponse } from "../users/shared/get-users-response";
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class UserService {
   }
 
   getUsers(): Observable<User[] | ResponseError> {
-    return this.httpClient.get<any>(this.rootUrl + '/users')
+    return this.httpClient.get<GetUsersResponse>(this.rootUrl + '/users')
       .pipe(
         map(response => response.data.map(user => (
           {
@@ -41,7 +42,9 @@ export class UserService {
             dateCreated: user.created_date
           } as User))),
         tap(data => console.log('users response: ', data)),
-        catchError(err => UserService.handleHttpError(err, userRetrievalErrorText))
+        catchError(err => {
+          return UserService.handleHttpError(err, userRetrievalErrorText)
+        })
       )
   }
 

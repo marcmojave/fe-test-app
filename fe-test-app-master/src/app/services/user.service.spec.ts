@@ -7,6 +7,9 @@ import { ResponseError } from "../users/shared/response-error.model";
 import { userRetrievalErrorText } from "../shared/ui-text";
 
 describe('UserService', () => {
+  // creates mock http requests & includes methods to specify http response from mock request
+  // can write tests against the mock request, aswell as how your application processed the response returned by
+  // mock request
   let httpTestingController: HttpTestingController;
   let userService: UserService;
 
@@ -59,15 +62,17 @@ describe('UserService', () => {
         expect(data.length).toEqual(2);
       });
 
+      // ensure only 1 request matching the url is sent
       const usersRequest: TestRequest = httpTestingController.expectOne('http://localhost:3000/users');
+      // good to check here that correct verb being used, correct header meta data etc
       expect(usersRequest.request.method).toEqual('GET');
       // add users to the body of response sent to calling code
+      // this is how you generate a http response for the request
       usersRequest.flush(testUsers);
     });
 
     it('should return a ResponseError', () => {
       userService.getUsers().subscribe(
-        (date: User[]) => fail('error should have been thrown.'),
         (err: ResponseError) => {
           expect(err.userMessage).toEqual(userRetrievalErrorText);
         }
