@@ -1,6 +1,6 @@
-# EXADS Frontend Test Project
+# Frontend Test Project
 
-This project is intended to be used as a base for the EXADS Frontend Test. It includes:
+This project is intended to be used as a base for the Company Name Frontend Test. It includes:
 - Empty Angular 8 app with required dependencies for Angular Material and Ngx Datatable already set up.
 - API to support the frontend app.
 
